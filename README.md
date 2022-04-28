@@ -22,3 +22,5 @@ ttx.exe
 
 
 Installing networkx is only necessary if you want your graphs drawn. If you don't want them drawn, just run generatorNoDrawings
+
+Will create .in files, and images, in the directory the python file is located equal to the amount of test cases you request.
