@@ -7,7 +7,7 @@ def DFS(test, i, V):
     return 0
 
 
-Vmin, Vmax, Emin, Emax, W, testCases, draw = map(int,input().split())
+Vmin, Vmax, Emin, Emax, W, testCases = map(int,input().split())
 ## Vmin      = minimum number of vertice in graph
 ## Vmax      = max number of vertice in graph
 ## Emin      = min number of edges pr vertice
