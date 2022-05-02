@@ -1,4 +1,8 @@
 import random
+import networkx as nx
+import matplotlib.pyplot as plt
+from pyparsing import with_class
+
 
 def DFS(test, i, V):
     for edge in test[i]:
@@ -6,8 +10,35 @@ def DFS(test, i, V):
         return DFS(test,edge[1],V)
     return 0
 
+def drawGraph(fileName):
+    f = open(fileName,'r')
+    input = f.read().splitlines()
+    for line,i in zip(input,range(len(input))):
+        input[i] = line.split(" ")
+    ##Store V and E
+    V = int(input[0][0])
+    E = int(input[0][1])
+    edges = input[1:E+1]
+    ##Make edges contain tuples of ints instead of strings
+    for edge,i in zip(edges,range(len(input))):
+        edges[i] = [int(edge[0]),int(edge[1]),int(edge[2])]
 
-Vmin, Vmax, Emin, Emax, W, testCases = map(int,input().split())
+    ###G = nx.Graph()
+
+    ##G.add_nodes_from([0, 3])
+    G = nx.DiGraph()
+    for i in range(V):
+        G.add_node(i,label = i)
+    for edge in edges:
+        G.add_edge(edge[0],edge[1],weight = edge[2])
+
+    nx.draw_shell(G,with_labels=True)
+    dir = f'{fileName}.png'
+    plt.savefig(dir)
+    G.clear()
+    plt.close()
+
+Vmin, Vmax, Emin, Emax, W, testCases, scramble = map(int,input().split())
 ## Vmin      = minimum number of vertice in graph
 ## Vmax      = max number of vertice in graph
 ## Emin      = min number of edges pr vertice
@@ -15,6 +46,7 @@ Vmin, Vmax, Emin, Emax, W, testCases = map(int,input().split())
 # OBS May create a vertice with more edges than Emax, if it is necessary to ensure all vertice are reachable from start and all vertice can reach the end.
 ## W         = Weight of any given edge will be (-W <= weight <= W)
 ## testCases = Number of tests you want
+## scramble  = 1 if you want the edgelist to be scrambled
 
 ## Run all test cases
 for caseNo in range(testCases):
@@ -64,7 +96,7 @@ for caseNo in range(testCases):
     for node in test:
         for edge in node:
             topologicallySortedEdges.append(edge)
-
+    if(scramble == 1): random.shuffle(topologicallySortedEdges)
     ## Write testcase to file
     fileName = f'{caseNo}.in'
     with open(fileName,'w') as l:
