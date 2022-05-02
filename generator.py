@@ -96,7 +96,7 @@ for caseNo in range(testCases):
     for node in test:
         for edge in node:
             topologicallySortedEdges.append(edge)
-
+    random.shuffle(topologicallySortedEdges)
     ## Write testcase to file
     fileName = f'{caseNo}.in'
     with open(fileName,'w') as l:
