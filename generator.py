@@ -38,7 +38,7 @@ def drawGraph(fileName):
     G.clear()
     plt.close()
 
-Vmin, Vmax, Emin, Emax, W, testCases, draw = map(int,input().split())
+Vmin, Vmax, Emin, Emax, W, testCases, draw, scramble = map(int,input().split())
 ## Vmin      = minimum number of vertice in graph
 ## Vmax      = max number of vertice in graph
 ## Emin      = min number of edges pr vertice
@@ -47,6 +47,7 @@ Vmin, Vmax, Emin, Emax, W, testCases, draw = map(int,input().split())
 ## W         = Weight of any given edge will be (-W <= weight <= W)
 ## testCases = Number of tests you want
 ## draw      = 1 if you want your graphs drawn, any other integer if you don't (This will look like shit if you make big graphs :))
+## scramble  = 1 if you want the edgelist to be scrambled
 
 ## Run all test cases
 for caseNo in range(testCases):
@@ -96,7 +97,7 @@ for caseNo in range(testCases):
     for node in test:
         for edge in node:
             topologicallySortedEdges.append(edge)
-    random.shuffle(topologicallySortedEdges)
+    if(scramble == 1): random.shuffle(topologicallySortedEdges)
     ## Write testcase to file
     fileName = f'{caseNo}.in'
     with open(fileName,'w') as l:
